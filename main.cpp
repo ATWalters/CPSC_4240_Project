@@ -1,25 +1,36 @@
 #include <iostream>
 #include "file_perm.cpp"
 
+using namespace std;
+
 int main() {
     char option;
+    bool quit = false;
 
     do{
-        std::cout << "Enter F for file permissions" << std::endl;
-        std::cout << "Enter U for user management" << std::endl;
-        std::cout << "Enter L for log management" << std::endl;
+        cout << "Enter [F/f] for file permissions" << endl;
+        cout << "Enter [U/u] for user management" << endl;
+        cout << "Enter [L/l] for log management" << endl;
+        cout << "Enter [Q/q] to quit program" << endl;
 
-        std::cout << "Enter an option below:" << std::endl;
+        cout << "Enter an option:" << endl;
 
-        std::cin >> option;
+        cin >> option;
         switch(option){
+            //Go to the file permissions
             case 'F':
+            case 'f':
                 file_perm();
-            break;
-
+                break;
+            //Quit the program
+            case 'Q':
+            case 'q':
+                quit = true;
+                break;
             default:
-            break;
+                quit = true;
+                break;
         }      
-    }while(option != 'q' || option != 'Q');
+    }while(!quit);
     return 0;
 }
