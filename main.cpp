@@ -1,5 +1,6 @@
 #include <iostream>
 #include "file_perm.cpp"
+#include "user_manage.cpp"
 
 using namespace std;
 
@@ -26,6 +27,10 @@ int main() {
             case 'Q':
             case 'q':
                 quit = true;
+                break;
+            case 'U':
+            case 'u':
+                user_manage();
                 break;
             default:
                 quit = true;
