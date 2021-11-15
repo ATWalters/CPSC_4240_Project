@@ -111,31 +111,15 @@ void del_user(){
     int index = choice;
     //Username of the user to remove
     string userToDel = users.at(index);
-
-    char removeFiles;
-    cout << "Do you want to remove all of the user's files? [Y/N]" << endl;
-    cin >> removeFiles;
+    cin.ignore();
 
     string delUserCmd = "sudo deluser";
-
-    if(removeFiles == 'y' || removeFiles == 'Y'){
-        delUserCmd += " --remove-all-files";
-
-        char backup;
-        cout << "Do you want to backup the user's files? [Y/N]" << endl;
-        cin >> backup;
-
-        if(backup == 'y' || backup == 'Y'){
-            delUserCmd += " --backup";
-        }
-    }
 
     delUserCmd += " " + userToDel;
     system(delUserCmd.c_str());
 
     cout << "User successfully deleted" << endl;
     return;
-
 }
 
 void mod_user(){
