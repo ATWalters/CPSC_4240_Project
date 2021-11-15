@@ -11,7 +11,7 @@ int main() {
     do{
         cout << "Enter [F/f] for file permissions" << endl;
         cout << "Enter [U/u] for user management" << endl;
-        cout << "Enter [L/l] for log management" << endl;
+        //cout << "Enter [L/l] for log management" << endl;
         cout << "Enter [Q/q] to quit program" << endl;
 
         cout << "Enter an option:" << endl;

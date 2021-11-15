@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<string> getUsers(){
+vector<string> get_users(){
     vector<string> users;
     //Command to display all of the users in the system and store in temp.txt
     system("eval getent passwd {$(awk '/^UID_MIN/ {print $2}' /etc/login.defs)..$(awk '/^UID_MAX/ {print $2}' /etc/login.defs)} | cut -d: -f1 > temp.txt");
@@ -17,6 +17,7 @@ vector<string> getUsers(){
         while(getline(myfile, line)){
             users.push_back(line);
         }
+    ofstream myfile;
     }else{
         cout << "Problem opening file temp.txt! \n Exiting program";
     }
@@ -25,6 +26,9 @@ vector<string> getUsers(){
 }
 
 void add_user(){
+    string UID;
+    string group;
+
     //Get username from the sys admin
     string userName;
     cout << "Enter the username for the new user" << endl;
@@ -41,7 +45,6 @@ void add_user(){
     cin >> specificUID;
 
     if(specificUID == 'y' || specificUID == 'Y'){
-        string UID;
         cout << "Enter the UID for the user" << endl;
         cin >> UID;
     }
@@ -52,23 +55,105 @@ void add_user(){
     cin >> specificGroup;
 
     if(specificGroup == 'y' || specificGroup == 'Y'){
-        string group;
         cout << "Enter the group name to add the user to" << endl;
         cin >> group;
     }
 
     //Build the command to pass to the system
-    string addUserCmd = "useradd ";
+    string addUserCmd = "useradd";
+
+    //If sys admin wants to add a home directory include that option in the addUserCmd string
+    if(createHome == 'y' || createHome == 'Y'){
+        addUserCmd += " -m";
+    }
+
+    if(specificUID == 'y' || specificUID == 'Y'){
+        addUserCmd += " -u " + UID;
+    }
+
+    if(specificGroup == 'y' || specificGroup == 'Y'){
+        addUserCmd += " -g " + group;
+    }
+
+    addUserCmd += " " + userName;
+
+    //Make system call to actually add an user
+    system(addUserCmd.c_str());
+
+    cout << "New user successfully created!" << endl;
+    return;
+}
+
+//Helper method to print all users stored in the vector u
+void print_users(vector<string> u){
+    cout << "Current users in the system: " << endl;
+    int j = 0;
+    for(auto i = u.begin(); i != u.end(); ++i){
+        cout << j << ": " << *i << endl;
+        j++;
+    }
 }
 
 void del_user(){
+    //Vector to store all of the users currently in the system
+    vector<string> users;
+    users = get_users();
+
+    //Print out the current users in the system for the sys admin to choose from
+    print_users(users);
+
+    char choice;
+    cout << "Enter the number associated with the user you want to delete" << endl;
+    cin >> choice;
+
+    //Convert number to an int for use
+    int index = choice;
+    //Username of the user to remove
+    string userToDel = users.at(index);
+
+    char removeFiles;
+    cout << "Do you want to remove all of the user's files? [Y/N]" << endl;
+    cin >> removeFiles;
+
+    string delUserCmd = "deluser";
+
+    if(removeFiles == 'y' || removeFiles == 'Y'){
+        delUserCmd += " --remove-all-files";
+
+        char backup;
+        cout << "Do you want to backup the user's files? [Y/N]" << endl;
+        cin >> backup;
+
+        if(backup == 'y' || backup == 'Y'){
+            delUserCmd += " --backup";
+        }
+    }
+
+    delUserCmd += " " + userToDel;
+    system(delUserCmd.c_str());
+
+    cout << "User successfully deleted" << endl;
+    return;
 
 }
 
 void mod_user(){
     //Vector to store all of the users currently in the system
     vector<string> users;
-    users = getUsers();
+    users = get_users();
+
+    //Print out the current users in the system for the sys admin to choose from
+    print_users(users);
+
+    char choice;
+    cout << "Enter the number associated with the user you want to delete" << endl;
+    cin >> choice;
+
+    //Convert number to an int for use
+    int index = choice;
+    //Username of the user to remove
+    string userToMod = users.at(index);
+
 }
 
 void user_manage(){
