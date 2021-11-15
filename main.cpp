@@ -1,5 +1,6 @@
 #include <iostream>
 #include "file_perm.cpp"
+#include "user_manage.cpp"
 
 using namespace std;
 
@@ -10,7 +11,7 @@ int main() {
     do{
         cout << "Enter [F/f] for file permissions" << endl;
         cout << "Enter [U/u] for user management" << endl;
-        cout << "Enter [L/l] for log management" << endl;
+        //cout << "Enter [L/l] for log management" << endl;
         cout << "Enter [Q/q] to quit program" << endl;
 
         cout << "Enter an option:" << endl;
@@ -26,6 +27,11 @@ int main() {
             case 'Q':
             case 'q':
                 quit = true;
+                break;
+            //Go to user management
+            case 'U':
+            case 'u':
+                user_manage();
                 break;
             default:
                 quit = true;
