@@ -28,6 +28,7 @@ int main() {
             case 'q':
                 quit = true;
                 break;
+            //Go to user management
             case 'U':
             case 'u':
                 user_manage();
