@@ -8,7 +8,8 @@ using namespace std;
 vector<string> get_users(){
     vector<string> users;
     //Command to display all of the users in the system and store in temp.txt
-    system("eval getent passwd {$(awk '/^UID_MIN/ {print $2}' /etc/login.defs)..$(awk '/^UID_MAX/ {print $2}' /etc/login.defs)} | cut -d: -f1 > temp.txt");
+    string getUserCmd = "getent passwd {1000..6000} | cut -d: -f1 /etc/passwd > temp.txt";
+    system(getUserCmd.c_str());
 
     //Open temp.txt and read line by line the users in the system and store in an array for printing to the screen to give users options to choose from
     string line;
@@ -60,7 +61,7 @@ void add_user(){
     }
 
     //Build the command to pass to the system
-    string addUserCmd = "useradd";
+    string addUserCmd = "sudo useradd";
 
     //If sys admin wants to add a home directory include that option in the addUserCmd string
     if(createHome == 'y' || createHome == 'Y'){
@@ -115,7 +116,7 @@ void del_user(){
     cout << "Do you want to remove all of the user's files? [Y/N]" << endl;
     cin >> removeFiles;
 
-    string delUserCmd = "deluser";
+    string delUserCmd = "sudo deluser";
 
     if(removeFiles == 'y' || removeFiles == 'Y'){
         delUserCmd += " --remove-all-files";
