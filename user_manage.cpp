@@ -8,7 +8,8 @@ using namespace std;
 vector<string> get_users(){
     vector<string> users;
     //Command to display all of the users in the system and store in temp.txt
-    system("eval getent passwd {$(awk '/^UID_MIN/ {print $2}' /etc/login.defs)..$(awk '/^UID_MAX/ {print $2}' /etc/login.defs)} | cut -d: -f1 > temp.txt");
+    string getUserCmd = "getent passwd {1000..6000} | cut -d: -f1 /etc/passwd > temp.txt";
+    system(getUserCmd.c_str());
 
     //Open temp.txt and read line by line the users in the system and store in an array for printing to the screen to give users options to choose from
     string line;
@@ -60,7 +61,7 @@ void add_user(){
     }
 
     //Build the command to pass to the system
-    string addUserCmd = "useradd";
+    string addUserCmd = "sudo useradd";
 
     //If sys admin wants to add a home directory include that option in the addUserCmd string
     if(createHome == 'y' || createHome == 'Y'){
@@ -81,6 +82,11 @@ void add_user(){
     system(addUserCmd.c_str());
 
     cout << "New user successfully created!" << endl;
+
+    cout << "Now we will enter a password for: " + userName << endl;
+    string addPass = "passwd " + userName;
+    system(addPass.c_str());
+
     return;
 }
 
@@ -110,31 +116,15 @@ void del_user(){
     int index = choice;
     //Username of the user to remove
     string userToDel = users.at(index);
+    cin.ignore();
 
-    char removeFiles;
-    cout << "Do you want to remove all of the user's files? [Y/N]" << endl;
-    cin >> removeFiles;
-
-    string delUserCmd = "deluser";
-
-    if(removeFiles == 'y' || removeFiles == 'Y'){
-        delUserCmd += " --remove-all-files";
-
-        char backup;
-        cout << "Do you want to backup the user's files? [Y/N]" << endl;
-        cin >> backup;
-
-        if(backup == 'y' || backup == 'Y'){
-            delUserCmd += " --backup";
-        }
-    }
+    string delUserCmd = "sudo deluser";
 
     delUserCmd += " " + userToDel;
     system(delUserCmd.c_str());
 
     cout << "User successfully deleted" << endl;
     return;
-
 }
 
 void mod_user(){
@@ -153,6 +143,9 @@ void mod_user(){
     int index = choice;
     //Username of the user to remove
     string userToMod = users.at(index);
+
+    //Ask them what they would like to do
+    // lock and unlock, change name, set an expiry date
 
 }
 
