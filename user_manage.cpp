@@ -84,7 +84,7 @@ void add_user(){
     cout << "New user successfully created!" << endl;
 
     cout << "Now we will enter a password for: " + userName << endl;
-    string addPass = "passwd " + userName;
+    string addPass = "sudo passwd " + userName;
     system(addPass.c_str());
 
     return;
