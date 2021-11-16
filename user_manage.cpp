@@ -118,8 +118,12 @@ void del_user(){
     string userToDel = users.at(index - 1);
     cin.ignore();
 
-    string delUserCmd = "sudo deluser";
+    //Kill all processes running by the user the sys admin selected
+    string killProcCmd = "sudo killall -u " + userToDel;
+    system(killProcCmd.c_str());
 
+    //Call deluser command on the user the sys admin selected
+    string delUserCmd = "sudo deluser";
     delUserCmd += " " + userToDel;
     system(delUserCmd.c_str());
 
@@ -145,7 +149,7 @@ void mod_user(){
     string userToMod = users.at(index);
 
     //Ask them what they would like to do
-    // lock and unlock, change name, set an expiry date
+    // lock and unlock, change name, set an expiry date, maybe something else?
 
 }
 
