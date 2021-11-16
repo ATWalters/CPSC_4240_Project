@@ -189,7 +189,8 @@ void mod_user(){
     int index = choice - 4;
     //Username of the user to remove
     string userToMod = users.at(index - 1);
-
+    cin.ignore();
+    
     //Ask them what they would like to do
     // lock and unlock, change name, set an expiry date, maybe something else?
 
