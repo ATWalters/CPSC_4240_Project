@@ -186,9 +186,9 @@ void mod_user(){
     cin >> choice;
 
     //Convert number to an int for use
-    int index = choice;
+    int index = choice - 4;
     //Username of the user to remove
-    string userToMod = users.at(index);
+    string userToMod = users.at(index - 1);
 
     //Ask them what they would like to do
     // lock and unlock, change name, set an expiry date, maybe something else?
