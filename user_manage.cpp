@@ -132,13 +132,13 @@ void del_user(){
 }
 
 void lock_user(string u){
-    string lockCmd = "usermod -L " + u;
+    string lockCmd = "sudo usermod -L " + u;
     system(lockCmd.c_str());
     return;
 }
 
 void unlock_user(string u){
-    string unlockCmd = "usermod -U " + u;
+    string unlockCmd = "sudo usermod -U " + u;
     system(unlockCmd.c_str());
     return;
 }
@@ -148,7 +148,7 @@ void rename_user(string u){
     cout << "Please enter the new name for the the user: " << u << endl;
     cin >> newName;
 
-    string renameCmd = "usermod -l " + newName + u;
+    string renameCmd = "sudo usermod -l " + newName + u;
     system(renameCmd.c_str());
     return;
 }
@@ -158,7 +158,7 @@ void change_expiry(string u){
     cout << "Please enter the expiry date in YYYY-MM-DD format:" << endl;
     cin >> expiry;
 
-    string expiryCmd = "usermod -e " + expiry + " " + u;
+    string expiryCmd = "sudo usermod -e " + expiry + " " + u;
     system(expiryCmd.c_str());
     return;
 }
@@ -168,7 +168,7 @@ void change_home(string u){
     cout << "Please enter the new home directory for " << u << ":" << endl;
     cin >> newHome;
 
-    string homeCmd = "usermod -d " + newHome + " " + u;
+    string homeCmd = "sudo usermod -d " + newHome + " " + u;
     system(homeCmd.c_str());
     return;
 }
@@ -190,7 +190,7 @@ void mod_user(){
     //Username of the user to remove
     string userToMod = users.at(index - 1);
     cin.ignore();
-    
+
     //Ask them what they would like to do
     // lock and unlock, change name, set an expiry date, maybe something else?
 
