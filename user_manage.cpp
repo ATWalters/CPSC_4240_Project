@@ -118,10 +118,6 @@ void del_user(){
     string userToDel = users.at(index - 1);
     cin.ignore();
 
-    //Kill all processes running by the user the sys admin selected
-    string killProcCmd = "sudo killall -u " + userToDel;
-    system(killProcCmd.c_str());
-
     //Call deluser command on the user the sys admin selected
     string delUserCmd = "sudo deluser";
     delUserCmd += " " + userToDel;
@@ -191,9 +187,6 @@ void mod_user(){
     string userToMod = users.at(index - 1);
     cin.ignore();
 
-    //Kill all processes running by the user the sys admin selected
-    string killProcCmd = "sudo killall -u " + userToMod;
-    system(killProcCmd.c_str());
 
     //Ask them what they would like to do
     char option;
