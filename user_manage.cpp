@@ -191,9 +191,11 @@ void mod_user(){
     string userToMod = users.at(index - 1);
     cin.ignore();
 
-    //Ask them what they would like to do
-    // lock and unlock, change name, set an expiry date, maybe something else?
+    //Kill all processes running by the user the sys admin selected
+    string killProcCmd = "sudo killall -u " + userToMod;
+    system(killProcCmd.c_str());
 
+    //Ask them what they would like to do
     char option;
     cout << "Enter [L/l] to lock the user" << endl;
     cout << "Enter [U/u] to unlock the user" << endl;
