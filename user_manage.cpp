@@ -131,6 +131,48 @@ void del_user(){
     return;
 }
 
+void lock_user(string u){
+    string lockCmd = "usermod -L " + u;
+    system(lockCmd.c_str());
+    return;
+}
+
+void unlock_user(string u){
+    string unlockCmd = "usermod -U " + u;
+    system(unlockCmd.c_str());
+    return;
+}
+
+void rename_user(string u){
+    string newName;
+    cout << "Please enter the new name for the the user: " << u << endl;
+    cin >> newName;
+
+    string renameCmd = "usermod -l " + newName + u;
+    system(renameCmd.c_str());
+    return;
+}
+
+void change_expiry(string u){
+    string expiry;
+    cout << "Please enter the expiry date in YYYY-MM-DD format:" << endl;
+    cin >> expiry;
+
+    string expiryCmd = "usermod -e " + expiry + " " + u;
+    system(expiryCmd.c_str());
+    return;
+}
+
+void change_home(string u){
+    string newHome;
+    cout << "Please enter the new home directory for " << u << ":" << endl;
+    cin >> newHome;
+
+    string homeCmd = "usermod -d " + newHome + " " + u;
+    system(homeCmd.c_str());
+    return;
+}
+
 void mod_user(){
     //Vector to store all of the users currently in the system
     vector<string> users;
@@ -150,6 +192,44 @@ void mod_user(){
 
     //Ask them what they would like to do
     // lock and unlock, change name, set an expiry date, maybe something else?
+
+    char option;
+    cout << "Enter [L/l] to lock the user" << endl;
+    cout << "Enter [U/u] to unlock the user" << endl;
+    cout << "Enter [N/n] to change the user's name" << endl;
+    cout << "Enter [E/e] to set expiry date" << endl;
+    cout << "Enter [H/h] to change the user's home directory" << endl;
+
+    cout << "Enter an option:" << endl;
+    cin >> option;
+    
+    switch(option){
+        //Call add user function
+        case 'L':
+        case 'l':
+            lock_user(userToMod);
+            break;
+        //Call delete user function
+        case 'U':
+        case 'u':
+            unlock_user(userToMod);
+            break;
+        //Call modify user function
+        case 'N':
+        case 'n':
+            rename_user(userToMod);
+            break;
+        case 'E':
+        case 'e':
+            change_expiry(userToMod);
+            break;
+        case 'H':
+        case 'h':
+            change_home(userToMod);
+            break;
+        default:
+            return;
+    }      
 
 }
 
