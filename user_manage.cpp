@@ -82,6 +82,11 @@ void add_user(){
     system(addUserCmd.c_str());
 
     cout << "New user successfully created!" << endl;
+
+    cout << "Now we will enter a password for: " + userName << endl;
+    string addPass = "passwd " + userName;
+    system(addPass.c_str());
+
     return;
 }
 
@@ -138,6 +143,9 @@ void mod_user(){
     int index = choice;
     //Username of the user to remove
     string userToMod = users.at(index);
+
+    //Ask them what they would like to do
+    // lock and unlock, change name, set an expiry date
 
 }
 
