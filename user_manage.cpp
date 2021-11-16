@@ -113,9 +113,9 @@ void del_user(){
     cin >> choice;
 
     //Convert number to an int for use
-    int index = choice;
+    int index = choice - 4;
     //Username of the user to remove
-    string userToDel = users.at(index);
+    string userToDel = users.at(index - 1);
     cin.ignore();
 
     string delUserCmd = "sudo deluser";
