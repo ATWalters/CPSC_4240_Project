@@ -144,7 +144,7 @@ void rename_user(string u){
     cout << "Please enter the new name for the the user: " << u << endl;
     cin >> newName;
 
-    string renameCmd = "sudo usermod -l " + newName + u;
+    string renameCmd = "sudo usermod -l " + newName + " " + u;
     system(renameCmd.c_str());
     return;
 }
