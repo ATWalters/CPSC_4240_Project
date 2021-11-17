@@ -178,7 +178,7 @@ void mod_user(){
     print_users(users);
 
     char choice;
-    cout << "Enter the number associated with the user you want to delete" << endl;
+    cout << "Enter the number associated with the user you want to modify" << endl;
     cin >> choice;
 
     //Convert number to an int for use
